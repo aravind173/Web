@@ -1,0 +1,42 @@
+package com.nit.mvc.entity;
+
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.Version;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name="doctor")
+public class Doctor
+{
+	@Id
+	@SequenceGenerator(name="gen1",sequenceName="doc",initialValue=100,allocationSize=1)
+	@GeneratedValue(generator="gen1",strategy=GenerationType.SEQUENCE)
+	private Integer DID;
+	@Column(length=30)
+	private String DNAME;
+	@Column(length=30)
+	private String DSPE;
+	@Column(length=30)
+	private Double DFEE;
+	@Version
+	private Integer updateCount;
+	@CreationTimestamp
+	private LocalDateTime createdOn;
+	@UpdateTimestamp
+	@Column(updatable=true,insertable=false)
+	private LocalDateTime last;
+	@Column(length=30)
+	private String active_sw="active";
+}
